@@ -1,0 +1,705 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import bcrypt from 'bcryptjs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DB_FILE = path.join(__dirname, '..', 'data', 'database.json');
+
+// Default initial dataset
+const getInitialData = () => {
+  const salt = bcrypt.genSaltSync(10);
+  const defaultPasswordHash = bcrypt.hashSync('password123', salt);
+
+  return {
+    users: [
+      {
+        id: 'usr_student_1',
+        name: 'Rohan Sharma',
+        email: 'student@campusnova.edu',
+        password: defaultPasswordHash,
+        role: 'student',
+        department: 'Computer Science & Engineering',
+        year: '3rd Year',
+        rollNo: '23CS1042',
+        avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+        phone: '+91 98765 43210'
+      },
+      {
+        id: 'usr_faculty_1',
+        name: 'Dr. Priya Sundaram',
+        email: 'faculty@campusnova.edu',
+        password: defaultPasswordHash,
+        role: 'faculty',
+        department: 'Computer Science & Engineering',
+        designation: 'Associate Professor & HOD-AI',
+        cabin: 'Tech Block 3, Room 304',
+        status: 'Available', // Available, In Class, Busy, On Leave
+        statusNote: 'Available in cabin for project review & doubts',
+        officeHours: '02:00 PM - 04:30 PM',
+        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+        phone: '+91 98765 11223'
+      },
+      {
+        id: 'usr_faculty_2',
+        name: 'Prof. Rajesh Kumar',
+        email: 'rajesh@campusnova.edu',
+        password: defaultPasswordHash,
+        role: 'faculty',
+        department: 'Information Technology',
+        designation: 'Assistant Professor (Senior Grade)',
+        cabin: 'IT Block, Room 202',
+        status: 'In Class',
+        statusNote: 'Taking Networks Lab till 4:00 PM',
+        officeHours: '10:00 AM - 12:30 PM',
+        avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&auto=format&fit=crop&q=80',
+        phone: '+91 98765 33445'
+      },
+      {
+        id: 'usr_alumni_1',
+        name: 'Ananya Verma',
+        email: 'alumni@campusnova.edu',
+        password: defaultPasswordHash,
+        role: 'alumni',
+        batch: 'Class of 2024',
+        department: 'Computer Science & Engineering',
+        company: 'Microsoft',
+        designation: 'Software Development Engineer (SDE-1)',
+        location: 'Hyderabad, India',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        linkedin: 'https://linkedin.com'
+      },
+      {
+        id: 'usr_admin_1',
+        name: 'Dr. S. K. Narayanan',
+        email: 'admin@campusnova.edu',
+        password: defaultPasswordHash,
+        role: 'admin',
+        designation: 'Dean of Academic & Campus Affairs',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+        phone: '+91 98765 99999'
+      }
+    ],
+
+    attendance: [
+      { id: 'att_1', studentId: 'usr_student_1', subjectCode: 'CS3501', subjectName: 'Artificial Intelligence & ML', attended: 42, total: 46, percentage: 91.3, faculty: 'Dr. Priya Sundaram' },
+      { id: 'att_2', studentId: 'usr_student_1', subjectCode: 'CS3502', subjectName: 'Database Management Systems', attended: 38, total: 44, percentage: 86.4, faculty: 'Dr. M. Raman' },
+      { id: 'att_3', studentId: 'usr_student_1', subjectCode: 'CS3503', subjectName: 'Computer Networks & Security', attended: 34, total: 42, percentage: 80.9, faculty: 'Prof. Rajesh Kumar' },
+      { id: 'att_4', studentId: 'usr_student_1', subjectCode: 'CS3504', subjectName: 'Internet of Things (IoT) Lab', attended: 28, total: 30, percentage: 93.3, faculty: 'Dr. K. Swaminathan' },
+      { id: 'att_5', studentId: 'usr_student_1', subjectCode: 'CS3505', subjectName: 'Design & Analysis of Algorithms', attended: 32, total: 40, percentage: 80.0, faculty: 'Prof. S. Divya' }
+    ],
+
+    marks: [
+      { id: 'mrk_1', studentId: 'usr_student_1', subjectCode: 'CS3501', subjectName: 'Artificial Intelligence & ML', internal1: 48, internal2: 46, modelExam: 94, maxInternal: 50, maxModel: 100, grade: 'A+' },
+      { id: 'mrk_2', studentId: 'usr_student_1', subjectCode: 'CS3502', subjectName: 'Database Management Systems', internal1: 44, internal2: 45, modelExam: 88, maxInternal: 50, maxModel: 100, grade: 'A' },
+      { id: 'mrk_3', studentId: 'usr_student_1', subjectCode: 'CS3503', subjectName: 'Computer Networks & Security', internal1: 42, internal2: 40, modelExam: 82, maxInternal: 50, maxModel: 100, grade: 'A' },
+      { id: 'mrk_4', studentId: 'usr_student_1', subjectCode: 'CS3504', subjectName: 'Internet of Things (IoT) Lab', internal1: 50, internal2: 49, modelExam: 98, maxInternal: 50, maxModel: 100, grade: 'O' },
+      { id: 'mrk_5', studentId: 'usr_student_1', subjectCode: 'CS3505', subjectName: 'Design & Analysis of Algorithms', internal1: 41, internal2: 43, modelExam: 85, maxInternal: 50, maxModel: 100, grade: 'A' }
+    ],
+
+    timetable: [
+      { id: 'tt_1', day: 'Monday', slots: [
+        { time: '09:00 - 10:00', subject: 'Artificial Intelligence', code: 'CS3501', room: 'LH-302', faculty: 'Dr. Priya' },
+        { time: '10:00 - 11:00', subject: 'Database Management Systems', code: 'CS3502', room: 'LH-302', faculty: 'Dr. Raman' },
+        { time: '11:15 - 12:15', subject: 'Computer Networks', code: 'CS3503', room: 'LH-302', faculty: 'Prof. Rajesh' },
+        { time: '01:15 - 03:15', subject: 'IoT Systems & Sensor Lab', code: 'CS3504', room: 'IoT Lab 2', faculty: 'Dr. Swaminathan' }
+      ]},
+      { id: 'tt_2', day: 'Tuesday', slots: [
+        { time: '09:00 - 10:00', subject: 'Design & Analysis of Algorithms', code: 'CS3505', room: 'LH-302', faculty: 'Prof. Divya' },
+        { time: '10:00 - 11:00', subject: 'Computer Networks', code: 'CS3503', room: 'LH-302', faculty: 'Prof. Rajesh' },
+        { time: '11:15 - 12:15', subject: 'Artificial Intelligence', code: 'CS3501', room: 'LH-302', faculty: 'Dr. Priya' },
+        { time: '01:15 - 03:15', subject: 'DBMS Laboratory', code: 'CS3506', room: 'Software Lab 1', faculty: 'Dr. Raman' }
+      ]},
+      { id: 'tt_3', day: 'Wednesday', slots: [
+        { time: '09:00 - 10:00', subject: 'Database Management Systems', code: 'CS3502', room: 'LH-302', faculty: 'Dr. Raman' },
+        { time: '10:00 - 11:00', subject: 'Artificial Intelligence', code: 'CS3501', room: 'LH-302', faculty: 'Dr. Priya' },
+        { time: '11:15 - 12:15', subject: 'Design & Analysis of Algorithms', code: 'CS3505', room: 'LH-302', faculty: 'Prof. Divya' },
+        { time: '01:15 - 02:15', subject: 'Open Elective / Minor', code: 'OE301', room: 'Seminar Hall', faculty: 'Visiting Faculty' }
+      ]},
+      { id: 'tt_4', day: 'Thursday', slots: [
+        { time: '09:00 - 10:00', subject: 'Computer Networks', code: 'CS3503', room: 'LH-302', faculty: 'Prof. Rajesh' },
+        { time: '10:00 - 11:00', subject: 'Design & Analysis of Algorithms', code: 'CS3505', room: 'LH-302', faculty: 'Prof. Divya' },
+        { time: '11:15 - 01:15', subject: 'AI Project & Research Work', code: 'PR301', room: 'AI Lab', faculty: 'Dr. Priya' },
+        { time: '02:15 - 03:15', subject: 'Library & Online Certifications', code: 'LIB01', room: 'Central Library', faculty: 'Staff' }
+      ]},
+      { id: 'tt_5', day: 'Friday', slots: [
+        { time: '09:00 - 10:00', subject: 'Artificial Intelligence', code: 'CS3501', room: 'LH-302', faculty: 'Dr. Priya' },
+        { time: '10:00 - 11:00', subject: 'Database Management Systems', code: 'CS3502', room: 'LH-302', faculty: 'Dr. Raman' },
+        { time: '11:15 - 12:15', subject: 'Computer Networks', code: 'CS3503', room: 'LH-302', faculty: 'Prof. Rajesh' },
+        { time: '01:15 - 03:15', subject: 'Placement Aptitude & Soft Skills', code: 'APT01', room: 'Auditorium', faculty: 'Training Dept' }
+      ]}
+    ],
+
+    exams: [
+      { id: 'ex_1', subjectCode: 'CS3501', subjectName: 'Artificial Intelligence & ML', date: '2026-09-15', time: '10:00 AM - 01:00 PM', hall: 'Hall 301, Block B', session: 'FN' },
+      { id: 'ex_2', subjectCode: 'CS3502', subjectName: 'Database Management Systems', date: '2026-09-18', time: '10:00 AM - 01:00 PM', hall: 'Hall 302, Block B', session: 'FN' },
+      { id: 'ex_3', subjectCode: 'CS3503', subjectName: 'Computer Networks & Security', date: '2026-09-21', time: '10:00 AM - 01:00 PM', hall: 'Hall 301, Block B', session: 'FN' },
+      { id: 'ex_4', subjectCode: 'CS3505', subjectName: 'Design & Analysis of Algorithms', date: '2026-09-24', time: '10:00 AM - 01:00 PM', hall: 'Hall 303, Block B', session: 'FN' },
+      { id: 'ex_5', subjectCode: 'CS3504', subjectName: 'Internet of Things (IoT) Practical Exam', date: '2026-09-28', time: '09:00 AM - 12:00 PM', hall: 'IoT & Embedded Lab', session: 'FN' }
+    ],
+
+    materials: [
+      {
+        id: 'mat_1',
+        title: 'Unit 1 to 5 Complete Lecture Notes - Artificial Intelligence',
+        subjectCode: 'CS3501',
+        subjectName: 'Artificial Intelligence & ML',
+        type: 'Lecture Notes',
+        fileUrl: '#',
+        fileName: 'AI_Unit1_5_Comprehensive_Notes.pdf',
+        fileSize: '4.8 MB',
+        uploadedBy: 'Dr. Priya Sundaram',
+        uploadedAt: '2026-08-10',
+        downloads: 342,
+        tags: ['Heuristics', 'A* Search', 'Neural Networks', 'Decision Trees']
+      },
+      {
+        id: 'mat_2',
+        title: 'Anna University End-Semester Previous Year Question Papers (2022-2025)',
+        subjectCode: 'CS3501',
+        subjectName: 'Artificial Intelligence & ML',
+        type: 'PYQ',
+        fileUrl: '#',
+        fileName: 'AI_PYQ_Solved_2022_2025.pdf',
+        fileSize: '6.2 MB',
+        uploadedBy: 'Dr. Priya Sundaram',
+        uploadedAt: '2026-08-12',
+        downloads: 512,
+        tags: ['Solved PYQ', '2-Mark Solutions', '16-Mark Answers']
+      },
+      {
+        id: 'mat_3',
+        title: 'Important Questions & Expected Exam Problems Bank (Semester 5)',
+        subjectCode: 'CS3502',
+        subjectName: 'Database Management Systems',
+        type: 'Important Questions',
+        fileUrl: '#',
+        fileName: 'DBMS_Question_Bank_V5.pdf',
+        fileSize: '3.1 MB',
+        uploadedBy: 'Dr. M. Raman',
+        uploadedAt: '2026-08-15',
+        downloads: 289,
+        tags: ['Normalization', 'SQL Queries', 'B-Trees', 'ACID Transactions']
+      },
+      {
+        id: 'mat_4',
+        title: 'Computer Networks Packet Tracer Lab Manual & Protocol Cheatsheets',
+        subjectCode: 'CS3503',
+        subjectName: 'Computer Networks & Security',
+        type: 'Lab Manual',
+        fileUrl: '#',
+        fileName: 'CN_Lab_Manual_Wireshark.pdf',
+        fileSize: '5.5 MB',
+        uploadedBy: 'Prof. Rajesh Kumar',
+        uploadedAt: '2026-08-05',
+        downloads: 198,
+        tags: ['TCP/IP', 'OSI', 'Routing', 'Subnetting']
+      }
+    ],
+
+    appointments: [
+      {
+        id: 'apt_1',
+        facultyId: 'usr_faculty_1',
+        facultyName: 'Dr. Priya Sundaram',
+        studentId: 'usr_student_1',
+        studentName: 'Rohan Sharma',
+        studentRoll: '23CS1042',
+        date: '2026-08-26',
+        timeSlot: '02:30 PM - 03:00 PM',
+        purpose: 'Final-Year Project Review Phase 1 & Architecture Discussion',
+        status: 'Approved', // Pending, Approved, Rejected, Completed
+        facultyRemarks: 'Please bring your hardware circuit diagram and system block diagram.'
+      },
+      {
+        id: 'apt_2',
+        facultyId: 'usr_faculty_2',
+        facultyName: 'Prof. Rajesh Kumar',
+        studentId: 'usr_student_1',
+        studentName: 'Rohan Sharma',
+        studentRoll: '23CS1042',
+        date: '2026-08-28',
+        timeSlot: '11:30 AM - 12:00 PM',
+        purpose: 'Computer Networks Unit 3 Subnetting Clarification',
+        status: 'Pending',
+        facultyRemarks: ''
+      }
+    ],
+
+    complaints: [
+      {
+        id: 'cmp_101',
+        title: 'Overhead Projector in Classroom LH-302 Display Bulb Flickering',
+        description: 'The ceiling mounted HDMI projector in LH-302 has a flickering yellow hue and shuts down automatically after 15 minutes of lecture.',
+        location: 'LH-302, Academic Block B, 3rd Floor',
+        category: 'Classroom Equipment',
+        aiCategory: 'Classroom Equipment',
+        priority: 'High',
+        aiPriority: 'High',
+        aiConfidence: 0.94,
+        status: 'In-Progress', // Open, In-Progress, Resolved
+        submittedBy: 'usr_student_1',
+        submitterName: 'Rohan Sharma',
+        assignedTo: 'Media & Tech Support Team',
+        adminRemarks: 'Technician dispatched. Replacement lamp ordered.',
+        createdAt: '2026-08-22T10:15:00Z',
+        updatedAt: '2026-08-23T14:30:00Z'
+      },
+      {
+        id: 'cmp_102',
+        title: 'Water Cooler on 2nd Floor IT Block Not Cooling',
+        description: 'The drinking water cooler near Lab 3 is dispensing room temperature water and the filter indicator light is flashing red.',
+        location: 'IT Block 2nd Floor Corridor',
+        category: 'Sanitation & Water',
+        aiCategory: 'Sanitation & Water',
+        priority: 'Medium',
+        aiPriority: 'Medium',
+        aiConfidence: 0.91,
+        status: 'Open',
+        submittedBy: 'usr_student_1',
+        submitterName: 'Rohan Sharma',
+        assignedTo: 'Campus Maintenance Dept',
+        adminRemarks: 'Pending vendor technician inspection.',
+        createdAt: '2026-08-24T09:00:00Z',
+        updatedAt: '2026-08-24T09:00:00Z'
+      },
+      {
+        id: 'cmp_103',
+        title: 'High Temperature & AC Tripping in Server Room B',
+        description: 'Server room B temperature sensor reading 38C. Secondary HVAC unit has tripped due to voltage fluctuation.',
+        location: 'Server Room B, Admin Block Basement',
+        category: 'Electrical & Safety',
+        aiCategory: 'Electrical & Safety',
+        priority: 'Critical',
+        aiPriority: 'Critical',
+        aiConfidence: 0.98,
+        status: 'Resolved',
+        submittedBy: 'usr_faculty_1',
+        submitterName: 'Dr. Priya Sundaram',
+        assignedTo: 'Electrical Maintenance Head',
+        adminRemarks: 'Dual HVAC restored. Backup UPS voltage stabilizer reset.',
+        createdAt: '2026-08-20T08:30:00Z',
+        updatedAt: '2026-08-20T11:45:00Z'
+      }
+    ],
+
+    lostFound: [
+      {
+        id: 'lf_1',
+        type: 'found', // lost or found
+        title: 'Scientific Calculator Texas Instruments TI-84 Plus',
+        description: 'Found on desk #14 in Computer Systems Lab 2 during the afternoon session. Has a black protective slip cover with initials "R.S."',
+        location: 'Computer Systems Lab 2, Tech Block',
+        contactPerson: 'Lab Assistant Mr. Murugan',
+        contactPhone: '+91 98765 00112',
+        status: 'Available', // Available, Claimed, Returned
+        imageUrl: 'https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=400&auto=format&fit=crop&q=80',
+        date: '2026-08-23'
+      },
+      {
+        id: 'lf_2',
+        type: 'lost',
+        title: 'Blue Fastrack Water Bottle with College Logo Sticker',
+        description: 'Stainless steel 1000ml water bottle left behind in Central Library 2nd floor reading hall on Sunday afternoon.',
+        location: 'Central Library, 2nd Floor Reading Hall',
+        contactPerson: 'Rohan Sharma (Student)',
+        contactPhone: '+91 98765 43210',
+        status: 'Available',
+        imageUrl: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&auto=format&fit=crop&q=80',
+        date: '2026-08-22'
+      },
+      {
+        id: 'lf_3',
+        type: 'found',
+        title: 'Set of 3 Keys with Batman Keychain',
+        description: 'Found near the College Canteen outdoor seating area near the main lawn.',
+        location: 'College Canteen Outer Lawn',
+        contactPerson: 'Security Gate 1 Office',
+        contactPhone: '+91 98765 00001',
+        status: 'Claimed',
+        imageUrl: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=400&auto=format&fit=crop&q=80',
+        date: '2026-08-21'
+      }
+    ],
+
+    buses: [
+      {
+        id: 'bus_1',
+        routeNumber: 'Route 12',
+        routeName: 'Central Railway Station <-> Campus Main Gate',
+        busNumber: 'TN 09 CB 4412',
+        driverName: 'Mr. S. Velu',
+        driverPhone: '+91 98401 22334',
+        status: 'On Time', // On Time, Delayed, Reached Campus
+        currentLocation: 'Koyambedu Junction (3.2 km away)',
+        etaMinutes: 12,
+        stops: [
+          { stop: 'Central Station', time: '07:15 AM' },
+          { stop: 'Egmore Metro', time: '07:30 AM' },
+          { stop: 'Aminjikarai', time: '07:45 AM' },
+          { stop: 'Koyambedu', time: '08:05 AM' },
+          { stop: 'Campus Main Gate', time: '08:30 AM' }
+        ]
+      },
+      {
+        id: 'bus_2',
+        routeNumber: 'Route 07',
+        routeName: 'Tambaram East <-> Campus Gate 2',
+        busNumber: 'TN 09 CB 8807',
+        driverName: 'Mr. K. Ravi',
+        driverPhone: '+91 98401 55667',
+        status: 'On Time',
+        currentLocation: 'Chromepet Signal (5.8 km away)',
+        etaMinutes: 18,
+        stops: [
+          { stop: 'Tambaram East Bus Stand', time: '07:10 AM' },
+          { stop: 'Sanatorium', time: '07:22 AM' },
+          { stop: 'Chromepet', time: '07:35 AM' },
+          { stop: 'Pallavaram', time: '07:50 AM' },
+          { stop: 'Campus Gate 2', time: '08:25 AM' }
+        ]
+      },
+      {
+        id: 'bus_3',
+        routeNumber: 'Route 21',
+        routeName: 'Anna Nagar West <-> Campus Main Gate',
+        busNumber: 'TN 09 CB 3321',
+        driverName: 'Mr. P. Mani',
+        driverPhone: '+91 98401 77889',
+        status: 'Arrived',
+        currentLocation: 'Campus Bus Bay 4',
+        etaMinutes: 0,
+        stops: [
+          { stop: 'Anna Nagar West Depot', time: '07:20 AM' },
+          { stop: 'Thirumangalam', time: '07:32 AM' },
+          { stop: 'Mogappair East', time: '07:45 AM' },
+          { stop: 'Campus Main Gate', time: '08:20 AM' }
+        ]
+      }
+    ],
+
+    events: [
+      {
+        id: 'evt_1',
+        title: 'HackNova 2026: 24-Hour AI & IoT Hackathon',
+        category: 'Technical Hackathon',
+        date: '2026-09-08',
+        time: '09:00 AM onwards',
+        venue: 'Campus Innovation Center & AI Lab',
+        description: 'National level 24-hour hackathon on GenAI, Smart City IoT, and Sustainable Tech. Cash prizes worth Rs 1,50,000 + Internship fast-track opportunities.',
+        bannerUrl: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop&q=80',
+        registrationDeadline: '2026-09-02',
+        registrationsCount: 148,
+        isRegistered: true,
+        organizer: 'Dept of Computer Science & AI Club'
+      },
+      {
+        id: 'evt_2',
+        title: 'Vibrance 2026: National Cultural & Arts Festival',
+        category: 'Cultural Fest',
+        date: '2026-09-25',
+        time: '04:00 PM - 10:00 PM',
+        venue: 'College Main Open Air Theatre (OAT)',
+        description: '3 days of music, dance, battle of bands, theatricals, and pro-night featuring top national indie artists and celebrity performances.',
+        bannerUrl: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80',
+        registrationDeadline: '2026-09-18',
+        registrationsCount: 420,
+        isRegistered: false,
+        organizer: 'Student Cultural Council'
+      },
+      {
+        id: 'evt_3',
+        title: 'Alumni Tech Conclave & SDE Placement Boot Camp',
+        category: 'Career & Placement',
+        date: '2026-09-12',
+        time: '10:00 AM - 01:30 PM',
+        venue: 'Auditorium 1 & Zoom Hybrid',
+        description: 'Interactive fireside chat with top alumni working at Microsoft, Google, Amazon, and Adobe sharing interview blueprints, system design guides, and live resume reviews.',
+        bannerUrl: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&auto=format&fit=crop&q=80',
+        registrationDeadline: '2026-09-10',
+        registrationsCount: 235,
+        isRegistered: true,
+        organizer: 'Campus Placement & Alumni Cell'
+      }
+    ],
+
+    alumniPosts: [
+      {
+        id: 'alm_1',
+        authorId: 'usr_alumni_1',
+        authorName: 'Ananya Verma',
+        authorRole: 'Software Development Engineer (SDE-1)',
+        company: 'Microsoft',
+        batch: 'Class of 2024 (CSE)',
+        title: 'How I Cracked Microsoft SDE-1 On-Campus: Round-by-Round Breakdown',
+        content: `Here is the exact roadmap and questions I faced during the Microsoft on-campus recruitment drive:
+1. Online Coding Round (3 Questions on Codility): Dynamic Programming (Frog Jump variation), Graph BFS for connected components, and Trie prefix search.
+2. Technical Round 1 (Data Structures): Heavy focus on Trees and Linked Lists. Solved LRU Cache implementation and Lowest Common Ancestor in Binary Tree.
+3. Technical Round 2 (System Design & OS): Concurrency, Deadlocks, Virtual Memory, and designing a URL Shortener with hashing and caching.
+4. AA Round (As Appropriate / Bar Raiser): Deep dive into my final-year IoT & Web project, conflict resolution in team projects, and customer-centric design.
+
+Key Advice: Master LeetCode Mediums on Graphs, DP, and Trees. Know every single line in your final-year project!`,
+        upvotes: 84,
+        postedAt: '2026-08-18',
+        tags: ['Microsoft', 'SDE-1', 'Coding Interview', 'System Design', 'DP']
+      },
+      {
+        id: 'alm_2',
+        authorId: 'usr_alumni_1',
+        authorName: 'Ananya Verma',
+        authorRole: 'Software Development Engineer (SDE-1)',
+        company: 'Microsoft',
+        batch: 'Class of 2024 (CSE)',
+        title: 'Curated 50 Must-Solve SQL & DBMS Interview Questions for Product Companies',
+        content: `Most students spend months on LeetCode but struggle in DBMS / SQL rounds. Product companies test:
+- Complex JOINs (Self-joins, Outer joins with aggregations).
+- Indexing internals (B+ Tree vs Hash Index).
+- ACID properties and Transaction Isolation Levels (Dirty read vs Non-repeatable read vs Phantom read).
+- Sharding vs Partitioning.
+
+I have attached my personal handwritten notes and SQL query cheat sheet for campus aspirants!`,
+        upvotes: 112,
+        postedAt: '2026-08-15',
+        tags: ['SQL', 'DBMS', 'Interview Prep', 'Database Design']
+      }
+    ],
+
+    iotSensors: {
+      temperature: {
+        id: 'sensor_temp_01',
+        name: 'Server Room & Lab Climate',
+        location: 'Tech Block 3 - AI & Server Hub',
+        value: 24.8,
+        unit: '°C',
+        humidity: 52,
+        status: 'Optimal', // Optimal, Warning, Critical
+        thresholdMax: 35.0,
+        lastUpdated: new Date().toISOString(),
+        history: [
+          { time: '18:30', value: 24.2 },
+          { time: '18:35', value: 24.5 },
+          { time: '18:40', value: 24.6 },
+          { time: '18:45', value: 24.8 },
+          { time: '18:50', value: 24.8 }
+        ]
+      },
+      smoke: {
+        id: 'sensor_smoke_01',
+        name: 'MQ-2 Fire & Smoke Safety Monitor',
+        location: 'Chemistry Lab & Server Block',
+        value: 48, // in PPM
+        unit: 'PPM',
+        status: 'Safe', // Safe, Warning, Hazard
+        thresholdAlert: 300,
+        lastUpdated: new Date().toISOString(),
+        history: [
+          { time: '18:30', value: 45 },
+          { time: '18:35', value: 46 },
+          { time: '18:40', value: 47 },
+          { time: '18:45', value: 48 },
+          { time: '18:50', value: 48 }
+        ]
+      },
+      waterLevel: {
+        id: 'sensor_water_01',
+        name: 'Overhead Water Tank Level (Block A & B)',
+        location: 'Rooftop Reservoir Block A',
+        value: 78, // in percentage
+        unit: '%',
+        liters: 15600,
+        capacity: 20000,
+        status: 'Sufficient', // Low, Sufficient, Full, Overflow Risk
+        thresholdLow: 25,
+        thresholdHigh: 95,
+        lastUpdated: new Date().toISOString(),
+        history: [
+          { time: '18:30', value: 82 },
+          { time: '18:35', value: 80 },
+          { time: '18:40', value: 79 },
+          { time: '18:45', value: 78 },
+          { time: '18:50', value: 78 }
+        ]
+      },
+      electricity: {
+        id: 'sensor_power_01',
+        name: 'Academic Block Central Energy Draw',
+        location: 'Main Substation & Panel B',
+        value: 18.4, // in kW
+        unit: 'kW',
+        voltage: 231,
+        status: 'Normal', // Normal, Peak, Overload
+        thresholdPeak: 30.0,
+        lastUpdated: new Date().toISOString(),
+        history: [
+          { time: '18:30', value: 19.1 },
+          { time: '18:35', value: 18.8 },
+          { time: '18:40', value: 18.5 },
+          { time: '18:45', value: 18.4 },
+          { time: '18:50', value: 18.4 }
+        ]
+      },
+      equipment: [
+        { id: 'eq_1', name: 'LH-301 Smart Projector & Audio', location: 'LH-301', powerState: 'ON', activeHours: 4.2, status: 'Active' },
+        { id: 'eq_2', name: 'LH-302 Overhead Projector', location: 'LH-302', powerState: 'FAULT', activeHours: 0.5, status: 'Bulb Fault' },
+        { id: 'eq_3', name: 'Lab 4 VR & AI Workstations (24 Nodes)', location: 'AI Research Lab', powerState: 'ON', activeHours: 6.8, status: 'Active' },
+        { id: 'eq_4', name: 'Seminar Hall Central Air Conditioning', location: 'Auditorium Hall', powerState: 'STANDBY', activeHours: 0.0, status: 'Standby' }
+      ]
+    },
+
+    circulars: [
+      {
+        id: 'cir_1',
+        title: 'End-Semester Theory & Practical Examination Schedule & Fee Notice',
+        originalText: 'This is to officially inform all undergraduate and postgraduate students that the upcoming End-Semester University Examinations for the current academic session will commence on September 15, 2026. The examination timetable has been published on the student portal. All candidates must complete examination fee clearance and download hall tickets before September 05, 2026. No late submissions will be entertained.',
+        aiSummary: [
+          'End-Semester Examinations commence on September 15, 2026.',
+          'Official timetable is live on the student portal.',
+          'Exam fee clearance and hall ticket download deadline: September 05, 2026.'
+        ],
+        targetRole: 'all',
+        category: 'Academics',
+        publishedBy: 'Office of Controller of Examinations',
+        date: '2026-08-20'
+      },
+      {
+        id: 'cir_2',
+        title: 'Announcement for National Hackathon "HackNova 2026" Registrations',
+        originalText: 'The Department of Computer Science & Engineering in association with the Institution Innovation Council is proud to organize HackNova 2026, a 24-hour national hackathon focused on AI and IoT for Smart Cities. Teams of 2 to 4 students can register with their abstract before September 02, 2026. Shortlisted teams will receive hardware kits and mentoring support from industry leaders.',
+        aiSummary: [
+          '24-Hour AI & IoT National Hackathon on September 08, 2026.',
+          'Teams of 2-4 students can register before September 02, 2026.',
+          'Shortlisted teams get free IoT hardware kits and industry mentorship.'
+        ],
+        targetRole: 'student',
+        category: 'Events',
+        publishedBy: 'IIC & CSE Department',
+        date: '2026-08-22'
+      }
+    ]
+  };
+};
+
+class DatabaseManager {
+  constructor() {
+    this.data = null;
+    this.init();
+  }
+
+  init() {
+    try {
+      const dataDir = path.dirname(DB_FILE);
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+
+      if (!fs.existsSync(DB_FILE)) {
+        this.data = getInitialData();
+        this.save();
+        console.log('[DB] Initialized database with comprehensive campus seed dataset.');
+      } else {
+        const raw = fs.readFileSync(DB_FILE, 'utf-8');
+        this.data = JSON.parse(raw);
+        console.log('[DB] Loaded database from file.');
+      }
+    } catch (err) {
+      console.error('[DB] Error initializing database:', err);
+      this.data = getInitialData();
+    }
+  }
+
+  save() {
+    try {
+      fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf-8');
+    } catch (err) {
+      console.error('[DB] Error saving database to file:', err);
+    }
+  }
+
+  get(collection) {
+    return this.data[collection] || [];
+  }
+
+  find(collection, filterFn = () => true) {
+    const list = this.get(collection);
+    return Array.isArray(list) ? list.filter(filterFn) : [];
+  }
+
+  findOne(collection, filterFn) {
+    const list = this.get(collection);
+    return Array.isArray(list) ? list.find(filterFn) : null;
+  }
+
+  insert(collection, item) {
+    if (!this.data[collection]) {
+      this.data[collection] = [];
+    }
+    const newItem = { id: item.id || `id_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`, ...item };
+    this.data[collection].push(newItem);
+    this.save();
+    return newItem;
+  }
+
+  update(collection, filterFn, updates) {
+    const list = this.get(collection);
+    if (!Array.isArray(list)) return null;
+
+    let updatedItem = null;
+    this.data[collection] = list.map(item => {
+      if (filterFn(item)) {
+        updatedItem = { ...item, ...updates };
+        return updatedItem;
+      }
+      return item;
+    });
+
+    if (updatedItem) this.save();
+    return updatedItem;
+  }
+
+  delete(collection, filterFn) {
+    const list = this.get(collection);
+    if (!Array.isArray(list)) return false;
+
+    const initialLength = list.length;
+    this.data[collection] = list.filter(item => !filterFn(item));
+    if (this.data[collection].length !== initialLength) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  getIoTSensors() {
+    return this.data.iotSensors;
+  }
+
+  updateIoTSensor(type, updateData) {
+    if (this.data.iotSensors && this.data.iotSensors[type]) {
+      this.data.iotSensors[type] = {
+        ...this.data.iotSensors[type],
+        ...updateData,
+        lastUpdated: new Date().toISOString()
+      };
+      this.save();
+      return this.data.iotSensors[type];
+    }
+    return null;
+  }
+
+  updateIoTEquipment(eqId, powerState, status) {
+    if (this.data.iotSensors && this.data.iotSensors.equipment) {
+      this.data.iotSensors.equipment = this.data.iotSensors.equipment.map(eq => {
+        if (eq.id === eqId) {
+          return { ...eq, powerState, status: status || eq.status };
+        }
+        return eq;
+      });
+      this.save();
+      return this.data.iotSensors.equipment;
+    }
+    return null;
+  }
+}
+
+export const db = new DatabaseManager();
