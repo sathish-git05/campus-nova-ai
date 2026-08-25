@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import OpenAI from 'openai';
 dotenv.config();
 
 /**
@@ -53,36 +54,39 @@ export const aiService = {
   async chat({ message, userContext, history = [], iotSensors = null }) {
     const q = (message || '').toLowerCase().trim();
 
-    // Check if external Gemini API is configured
-    if (process.env.GEMINI_API_KEY) {
+    // Check if NVIDIA DeepSeek API is configured
+    if (process.env.NVIDIA_API_KEY) {
       try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: 'user',
-                parts: [{
-                  text: `You are CampusNova AI, an intelligent, polite, and comprehensive assistant for a Smart Engineering College Campus.
+        const client = new OpenAI({
+          baseURL: 'https://integrate.api.nvidia.com/v1',
+          apiKey: process.env.NVIDIA_API_KEY
+        });
+        
+        const systemPrompt = `You are CampusNova AI, an intelligent, polite, and comprehensive assistant for a Smart Engineering College Campus.
 User details: Name: ${userContext?.name || 'Student'}, Role: ${userContext?.role || 'student'}, Dept: ${userContext?.department || 'CSE'}.
 Current IoT Status: ${JSON.stringify(iotSensors || {})}.
-Answer concisely, with rich formatting and bullet points where helpful:
-${message}`
-                }]
-              }
-            ]
-          })
+Answer concisely, with rich formatting and bullet points where helpful.`;
+
+        const completion = await client.chat.completions.create({
+          model: 'deepseek-ai/deepseek-v4-flash-0731',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: message }
+          ],
+          temperature: 0.7,
+          top_p: 0.95,
+          max_tokens: 2048,
         });
-        const data = await response.json();
-        if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+
+        const replyContent = completion.choices?.[0]?.message?.content;
+        if (replyContent) {
           return {
-            reply: data.candidates[0].content.parts[0].text,
-            source: 'Gemini-1.5-Flash'
+            reply: replyContent,
+            source: 'DeepSeek-v4-Flash (NVIDIA)'
           };
         }
       } catch (err) {
-        console.warn('[AI Service] Gemini API call fallback to local NLP engine:', err.message);
+        console.warn('[AI Service] DeepSeek API call fallback to local NLP engine:', err.message);
       }
     }
 

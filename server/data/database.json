@@ -784,64 +784,64 @@
       "id": "sensor_temp_01",
       "name": "Server Room & Lab Climate",
       "location": "Tech Block 3 - AI & Server Hub",
-      "value": 24.7,
+      "value": 24.6,
       "unit": "°C",
       "humidity": 52,
       "status": "Optimal",
       "thresholdMax": 35,
-      "lastUpdated": "2026-08-24T14:56:51.940Z",
+      "lastUpdated": "2026-08-25T12:01:53.977Z",
       "history": [
         {
-          "time": "07:55:56 pm",
-          "value": 24.5
+          "time": "05:31:05 pm",
+          "value": 24.6
         },
         {
-          "time": "07:56:00 pm",
+          "time": "05:31:09 pm",
+          "value": 24.6
+        },
+        {
+          "time": "05:31:13 pm",
+          "value": 24.6
+        },
+        {
+          "time": "05:31:17 pm",
           "value": 24.7
         },
         {
-          "time": "07:56:04 pm",
+          "time": "05:31:21 pm",
           "value": 24.8
         },
         {
-          "time": "07:56:08 pm",
+          "time": "05:31:25 pm",
           "value": 24.7
         },
         {
-          "time": "07:56:12 pm",
+          "time": "05:31:29 pm",
+          "value": 24.9
+        },
+        {
+          "time": "05:31:33 pm",
+          "value": 24.9
+        },
+        {
+          "time": "05:31:37 pm",
           "value": 24.8
         },
         {
-          "time": "07:56:16 pm",
+          "time": "05:31:41 pm",
+          "value": 24.9
+        },
+        {
+          "time": "05:31:45 pm",
           "value": 24.7
         },
         {
-          "time": "07:58:05 pm",
-          "value": 24.7
-        },
-        {
-          "time": "07:58:09 pm",
+          "time": "05:31:49 pm",
           "value": 24.6
         },
         {
-          "time": "08:26:35 pm",
+          "time": "05:31:53 pm",
           "value": 24.6
-        },
-        {
-          "time": "08:26:39 pm",
-          "value": 24.6
-        },
-        {
-          "time": "08:26:43 pm",
-          "value": 24.7
-        },
-        {
-          "time": "08:26:47 pm",
-          "value": 24.7
-        },
-        {
-          "time": "08:26:51 pm",
-          "value": 24.7
         }
       ]
     },
@@ -928,64 +928,64 @@
       "id": "sensor_power_01",
       "name": "Academic Block Central Energy Draw",
       "location": "Main Substation & Panel B",
-      "value": 16.1,
+      "value": 16.9,
       "unit": "kW",
       "voltage": 231,
       "status": "Normal",
       "thresholdPeak": 30,
-      "lastUpdated": "2026-08-24T14:56:51.941Z",
+      "lastUpdated": "2026-08-25T12:01:53.979Z",
       "history": [
         {
-          "time": "07:55:56 pm",
-          "value": 14.8
+          "time": "05:31:05 pm",
+          "value": 16.5
         },
         {
-          "time": "07:56:00 pm",
-          "value": 14.8
+          "time": "05:31:09 pm",
+          "value": 16.7
         },
         {
-          "time": "07:56:04 pm",
-          "value": 15
+          "time": "05:31:13 pm",
+          "value": 17
         },
         {
-          "time": "07:56:08 pm",
-          "value": 15.1
+          "time": "05:31:17 pm",
+          "value": 17.3
         },
         {
-          "time": "07:56:12 pm",
-          "value": 15.4
+          "time": "05:31:21 pm",
+          "value": 17.1
         },
         {
-          "time": "07:56:16 pm",
-          "value": 15.3
+          "time": "05:31:25 pm",
+          "value": 17
         },
         {
-          "time": "07:58:05 pm",
-          "value": 15.4
+          "time": "05:31:29 pm",
+          "value": 16.9
         },
         {
-          "time": "07:58:09 pm",
-          "value": 15.6
+          "time": "05:31:33 pm",
+          "value": 16.7
         },
         {
-          "time": "08:26:35 pm",
-          "value": 15.8
+          "time": "05:31:37 pm",
+          "value": 16.5
         },
         {
-          "time": "08:26:39 pm",
-          "value": 16.1
+          "time": "05:31:41 pm",
+          "value": 16.8
         },
         {
-          "time": "08:26:43 pm",
-          "value": 15.9
+          "time": "05:31:45 pm",
+          "value": 17
         },
         {
-          "time": "08:26:47 pm",
-          "value": 16.1
+          "time": "05:31:49 pm",
+          "value": 16.8
         },
         {
-          "time": "08:26:51 pm",
-          "value": 16.1
+          "time": "05:31:53 pm",
+          "value": 16.9
         }
       ]
     },
