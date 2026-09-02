@@ -784,72 +784,72 @@
       "id": "sensor_temp_01",
       "name": "Server Room & Lab Climate",
       "location": "Tech Block 3 - AI & Server Hub",
-      "value": 24.7,
+      "value": 27.1,
       "unit": "°C",
       "humidity": 52,
       "status": "Optimal",
       "thresholdMax": 35,
-      "lastUpdated": "2026-09-02T16:47:02.755Z",
+      "lastUpdated": "2026-09-02T18:23:37.600Z",
       "history": [
         {
-          "time": "10:15:57 pm",
-          "value": 23.2
+          "time": "11:52:41 pm",
+          "value": 27.5
         },
         {
-          "time": "10:16:01 pm",
-          "value": 23.3
+          "time": "11:52:45 pm",
+          "value": 27.5
         },
         {
-          "time": "10:16:05 pm",
-          "value": 23.1
+          "time": "11:52:49 pm",
+          "value": 27.3
         },
         {
-          "time": "10:16:09 pm",
-          "value": 23.2
+          "time": "11:52:53 pm",
+          "value": 27.3
         },
         {
-          "time": "10:16:13 pm",
-          "value": 23.3
+          "time": "11:52:57 pm",
+          "value": 27.1
         },
         {
-          "time": "10:16:17 pm",
-          "value": 23.3
+          "time": "11:53:01 pm",
+          "value": 27.2
         },
         {
-          "time": "10:16:21 pm",
-          "value": 23.3
+          "time": "11:53:05 pm",
+          "value": 27.2
         },
         {
-          "time": "10:16:25 pm",
-          "value": 23.1
+          "time": "11:53:09 pm",
+          "value": 27.1
         },
         {
-          "time": "10:16:29 pm",
-          "value": 23.1
+          "time": "11:53:13 pm",
+          "value": 27.1
         },
         {
-          "time": "10:16:33 pm",
-          "value": 23.2
+          "time": "11:53:17 pm",
+          "value": 27.1
         },
         {
-          "time": "10:16:37 pm",
-          "value": 23.3
+          "time": "11:53:21 pm",
+          "value": 27.1
         },
         {
-          "time": "10:16:39 pm",
-          "value": 24.5
+          "time": "11:53:25 pm",
+          "value": 27
         },
         {
-          "time": "10:16:41 pm",
-          "value": 24.4
+          "time": "11:53:29 pm",
+          "value": 26.8
         },
         {
-          "time": "10:16:58 pm",
-          "value": 24.5
+          "time": "11:53:33 pm",
+          "value": 26.9
         },
         {
-          "time": "10:17:02 pm",
-          "value": 24.7
+          "time": "11:53:37 pm",
+          "value": 27.1
         }
       ]
     },
@@ -960,72 +960,72 @@
       "id": "sensor_power_01",
       "name": "Academic Block Central Energy Draw",
       "location": "Main Substation & Panel B",
-      "value": 17.7,
+      "value": 18.4,
       "unit": "kW",
       "voltage": 231,
       "status": "Normal",
       "thresholdPeak": 30,
-      "lastUpdated": "2026-09-02T16:47:02.756Z",
+      "lastUpdated": "2026-09-02T18:23:37.601Z",
       "history": [
         {
-          "time": "10:15:57 pm",
-          "value": 16.4
+          "time": "11:52:41 pm",
+          "value": 18.3
         },
         {
-          "time": "10:16:01 pm",
-          "value": 16.4
+          "time": "11:52:45 pm",
+          "value": 18.5
         },
         {
-          "time": "10:16:05 pm",
-          "value": 16.2
+          "time": "11:52:49 pm",
+          "value": 18.6
         },
         {
-          "time": "10:16:09 pm",
-          "value": 16.1
+          "time": "11:52:53 pm",
+          "value": 18.8
         },
         {
-          "time": "10:16:13 pm",
-          "value": 16.4
+          "time": "11:52:57 pm",
+          "value": 18.7
         },
         {
-          "time": "10:16:17 pm",
-          "value": 16.4
+          "time": "11:53:01 pm",
+          "value": 18.7
         },
         {
-          "time": "10:16:21 pm",
-          "value": 16.6
+          "time": "11:53:05 pm",
+          "value": 18.4
         },
         {
-          "time": "10:16:25 pm",
-          "value": 16.7
+          "time": "11:53:09 pm",
+          "value": 18.3
         },
         {
-          "time": "10:16:29 pm",
-          "value": 16.9
+          "time": "11:53:13 pm",
+          "value": 18.4
         },
         {
-          "time": "10:16:33 pm",
-          "value": 17
+          "time": "11:53:17 pm",
+          "value": 18.5
         },
         {
-          "time": "10:16:37 pm",
-          "value": 16.7
+          "time": "11:53:21 pm",
+          "value": 18.6
         },
         {
-          "time": "10:16:39 pm",
-          "value": 18.2
+          "time": "11:53:25 pm",
+          "value": 18.6
         },
         {
-          "time": "10:16:41 pm",
-          "value": 18
+          "time": "11:53:29 pm",
+          "value": 18.4
         },
         {
-          "time": "10:16:58 pm",
-          "value": 17.9
+          "time": "11:53:33 pm",
+          "value": 18.3
         },
         {
-          "time": "10:17:02 pm",
-          "value": 17.7
+          "time": "11:53:37 pm",
+          "value": 18.4
         }
       ]
     },
