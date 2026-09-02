@@ -26,22 +26,25 @@ router.get('/', (req, res) => {
   res.json(list);
 });
 
-// Upload new study material / PYQ (Faculty action)
+// Upload new study material / PYQ
 router.post('/', (req, res) => {
-  const { title, subjectCode, subjectName, type, uploadedBy, tags, fileSize } = req.body;
+  const { title, subjectCode, subjectName, type, uploadedBy, tags, fileSize, fileName, fileUrl, description } = req.body;
   if (!title || !subjectCode) {
     return res.status(400).json({ error: 'Title and subject code are required' });
   }
 
+  const generatedFileName = fileName || `${title.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 30)}.pdf`;
+
   const newMaterial = db.insert('materials', {
     title,
     subjectCode,
-    subjectName: subjectName || 'Computer Science',
+    subjectName: subjectName || 'Computer Science & Engineering',
     type: type || 'Lecture Notes',
-    fileUrl: '#',
-    fileName: `${title.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 30)}.pdf`,
-    fileSize: fileSize || '3.4 MB',
-    uploadedBy: uploadedBy || 'Faculty Member',
+    fileUrl: fileUrl || '#',
+    fileName: generatedFileName,
+    fileSize: fileSize || '2.8 MB',
+    description: description || 'Official uploaded study resource for students.',
+    uploadedBy: uploadedBy || 'Faculty / Student Member',
     uploadedAt: new Date().toISOString().split('T')[0],
     downloads: 0,
     tags: Array.isArray(tags) ? tags : (tags ? tags.split(',').map(t => t.trim()) : ['Study Resource'])

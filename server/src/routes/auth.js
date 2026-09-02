@@ -112,4 +112,31 @@ router.post('/switch-role', (req, res) => {
   res.json({ token, user: safeUser });
 });
 
+// Update Profile Endpoint
+router.put('/profile', (req, res) => {
+  const { id, name, email, department, year, rollNo, avatar, bio, phone } = req.body;
+  if (!id) {
+    return res.status(400).json({ error: 'User ID is required for profile update' });
+  }
+
+  const updatedUser = db.update('users', u => u.id === id, {
+    name: name || undefined,
+    email: email || undefined,
+    department: department || undefined,
+    year: year || undefined,
+    rollNo: rollNo || undefined,
+    avatar: avatar || undefined,
+    bio: bio || undefined,
+    phone: phone || undefined,
+    updatedAt: new Date().toISOString()
+  });
+
+  if (!updatedUser) {
+    return res.status(404).json({ error: 'User profile not found' });
+  }
+
+  const { password: _, ...safeUser } = updatedUser;
+  res.json({ success: true, user: safeUser });
+});
+
 export default router;

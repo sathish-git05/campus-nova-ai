@@ -20,6 +20,15 @@ export const api = {
     return res.json();
   },
 
+  async updateProfile(profileData) {
+    const res = await fetch(`${API_BASE}/auth/profile`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(profileData)
+    });
+    return res.json();
+  },
+
   // Academics
   async getAttendance(studentId) {
     const res = await fetch(`${API_BASE}/academics/attendance?studentId=${studentId || ''}`);

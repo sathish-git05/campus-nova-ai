@@ -707,8 +707,8 @@
       "description": "National level 24-hour hackathon on GenAI, Smart City IoT, and Sustainable Tech. Cash prizes worth Rs 1,50,000 + Internship fast-track opportunities.",
       "bannerUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop&q=80",
       "registrationDeadline": "2026-09-02",
-      "registrationsCount": 148,
-      "isRegistered": true,
+      "registrationsCount": 147,
+      "isRegistered": false,
       "organizer": "Dept of Computer Science & AI Club"
     },
     {
@@ -769,7 +769,7 @@
       "batch": "Class of 2024 (CSE)",
       "title": "Curated 50 Must-Solve SQL & DBMS Interview Questions for Product Companies",
       "content": "Most students spend months on LeetCode but struggle in DBMS / SQL rounds. Product companies test:\n- Complex JOINs (Self-joins, Outer joins with aggregations).\n- Indexing internals (B+ Tree vs Hash Index).\n- ACID properties and Transaction Isolation Levels (Dirty read vs Non-repeatable read vs Phantom read).\n- Sharding vs Partitioning.\n\nI have attached my personal handwritten notes and SQL query cheat sheet for campus aspirants!",
-      "upvotes": 114,
+      "upvotes": 115,
       "postedAt": "2026-08-15",
       "tags": [
         "SQL",
@@ -784,68 +784,72 @@
       "id": "sensor_temp_01",
       "name": "Server Room & Lab Climate",
       "location": "Tech Block 3 - AI & Server Hub",
-      "value": 25.1,
+      "value": 24.7,
       "unit": "°C",
       "humidity": 52,
       "status": "Optimal",
       "thresholdMax": 35,
-      "lastUpdated": "2026-09-02T16:11:17.611Z",
+      "lastUpdated": "2026-09-02T16:47:02.755Z",
       "history": [
         {
-          "time": "09:40:25 pm",
-          "value": 24.3
+          "time": "10:15:57 pm",
+          "value": 23.2
         },
         {
-          "time": "09:40:29 pm",
-          "value": 24.3
+          "time": "10:16:01 pm",
+          "value": 23.3
         },
         {
-          "time": "09:40:33 pm",
+          "time": "10:16:05 pm",
+          "value": 23.1
+        },
+        {
+          "time": "10:16:09 pm",
+          "value": 23.2
+        },
+        {
+          "time": "10:16:13 pm",
+          "value": 23.3
+        },
+        {
+          "time": "10:16:17 pm",
+          "value": 23.3
+        },
+        {
+          "time": "10:16:21 pm",
+          "value": 23.3
+        },
+        {
+          "time": "10:16:25 pm",
+          "value": 23.1
+        },
+        {
+          "time": "10:16:29 pm",
+          "value": 23.1
+        },
+        {
+          "time": "10:16:33 pm",
+          "value": 23.2
+        },
+        {
+          "time": "10:16:37 pm",
+          "value": 23.3
+        },
+        {
+          "time": "10:16:39 pm",
           "value": 24.5
         },
         {
-          "time": "09:40:37 pm",
-          "value": 24.6
+          "time": "10:16:41 pm",
+          "value": 24.4
         },
         {
-          "time": "09:40:41 pm",
-          "value": 24.6
+          "time": "10:16:58 pm",
+          "value": 24.5
         },
         {
-          "time": "09:40:45 pm",
-          "value": 24.8
-        },
-        {
-          "time": "09:40:49 pm",
-          "value": 24.8
-        },
-        {
-          "time": "09:40:53 pm",
-          "value": 24.8
-        },
-        {
-          "time": "09:40:57 pm",
-          "value": 24.8
-        },
-        {
-          "time": "09:41:01 pm",
-          "value": 24.8
-        },
-        {
-          "time": "09:41:05 pm",
-          "value": 24.8
-        },
-        {
-          "time": "09:41:09 pm",
-          "value": 24.9
-        },
-        {
-          "time": "09:41:13 pm",
-          "value": 24.9
-        },
-        {
-          "time": "09:41:17 pm",
-          "value": 25.1
+          "time": "10:17:02 pm",
+          "value": 24.7
         }
       ]
     },
@@ -857,7 +861,7 @@
       "unit": "PPM",
       "status": "Safe",
       "thresholdAlert": 300,
-      "lastUpdated": "2026-09-02T16:05:44.288Z",
+      "lastUpdated": "2026-09-02T16:46:39.709Z",
       "history": [
         {
           "time": "18:30",
@@ -894,6 +898,14 @@
         {
           "time": "09:35:44 pm",
           "value": 45
+        },
+        {
+          "time": "10:16:39 pm",
+          "value": 450
+        },
+        {
+          "time": "10:16:39 pm",
+          "value": 45
         }
       ]
     },
@@ -908,7 +920,7 @@
       "status": "Sufficient",
       "thresholdLow": 25,
       "thresholdHigh": 95,
-      "lastUpdated": "2026-09-02T16:05:44.289Z",
+      "lastUpdated": "2026-09-02T16:46:39.711Z",
       "history": [
         {
           "time": "18:30",
@@ -937,6 +949,10 @@
         {
           "time": "09:35:44 pm",
           "value": 80
+        },
+        {
+          "time": "10:16:39 pm",
+          "value": 80
         }
       ]
     },
@@ -944,68 +960,72 @@
       "id": "sensor_power_01",
       "name": "Academic Block Central Energy Draw",
       "location": "Main Substation & Panel B",
-      "value": 17.2,
+      "value": 17.7,
       "unit": "kW",
       "voltage": 231,
       "status": "Normal",
       "thresholdPeak": 30,
-      "lastUpdated": "2026-09-02T16:11:17.612Z",
+      "lastUpdated": "2026-09-02T16:47:02.756Z",
       "history": [
         {
-          "time": "09:40:25 pm",
-          "value": 17
+          "time": "10:15:57 pm",
+          "value": 16.4
         },
         {
-          "time": "09:40:29 pm",
-          "value": 17
+          "time": "10:16:01 pm",
+          "value": 16.4
         },
         {
-          "time": "09:40:33 pm",
-          "value": 17.3
+          "time": "10:16:05 pm",
+          "value": 16.2
         },
         {
-          "time": "09:40:37 pm",
-          "value": 17.2
+          "time": "10:16:09 pm",
+          "value": 16.1
         },
         {
-          "time": "09:40:41 pm",
-          "value": 17.1
+          "time": "10:16:13 pm",
+          "value": 16.4
         },
         {
-          "time": "09:40:45 pm",
-          "value": 16.8
+          "time": "10:16:17 pm",
+          "value": 16.4
         },
         {
-          "time": "09:40:49 pm",
+          "time": "10:16:21 pm",
+          "value": 16.6
+        },
+        {
+          "time": "10:16:25 pm",
           "value": 16.7
         },
         {
-          "time": "09:40:53 pm",
+          "time": "10:16:29 pm",
           "value": 16.9
         },
         {
-          "time": "09:40:57 pm",
-          "value": 17.2
+          "time": "10:16:33 pm",
+          "value": 17
         },
         {
-          "time": "09:41:01 pm",
-          "value": 17.3
+          "time": "10:16:37 pm",
+          "value": 16.7
         },
         {
-          "time": "09:41:05 pm",
-          "value": 17.1
+          "time": "10:16:39 pm",
+          "value": 18.2
         },
         {
-          "time": "09:41:09 pm",
-          "value": 17.3
+          "time": "10:16:41 pm",
+          "value": 18
         },
         {
-          "time": "09:41:13 pm",
-          "value": 17.2
+          "time": "10:16:58 pm",
+          "value": 17.9
         },
         {
-          "time": "09:41:17 pm",
-          "value": 17.2
+          "time": "10:17:02 pm",
+          "value": 17.7
         }
       ]
     },
@@ -1088,6 +1108,19 @@
     },
     {
       "id": "id_1788365144307_x6wml",
+      "title": "End-Semester Timetable Clearance",
+      "originalText": "Final exam fees must be paid before Sept 05. Hall tickets will be issued online.",
+      "aiSummary": [
+        "Final exam fees must be paid before Sept 05.",
+        "Hall tickets will be issued online."
+      ],
+      "targetRole": "student",
+      "category": "Academics",
+      "publishedBy": "Office of the Principal",
+      "date": "2026-09-02"
+    },
+    {
+      "id": "id_1788367599736_2g3gi",
       "title": "End-Semester Timetable Clearance",
       "originalText": "Final exam fees must be paid before Sept 05. Hall tickets will be issued online.",
       "aiSummary": [
