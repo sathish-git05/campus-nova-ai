@@ -29,6 +29,11 @@ export const api = {
     return res.json();
   },
 
+  async getProfile(id) {
+    const res = await fetch(`${API_BASE}/auth/profile/${id}`);
+    return res.json();
+  },
+
   // Academics
   async getAttendance(studentId) {
     const res = await fetch(`${API_BASE}/academics/attendance?studentId=${studentId || ''}`);

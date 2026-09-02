@@ -112,6 +112,14 @@ router.post('/switch-role', (req, res) => {
   res.json({ token, user: safeUser });
 });
 
+// Get Profile by ID
+router.get('/profile/:id', (req, res) => {
+  const user = db.findOne('users', u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  const { password, ...safeUser } = user;
+  res.json(safeUser);
+});
+
 // Update Profile Endpoint
 router.put('/profile', (req, res) => {
   const { id, name, email, department, year, rollNo, avatar, bio, phone } = req.body;
@@ -119,17 +127,18 @@ router.put('/profile', (req, res) => {
     return res.status(400).json({ error: 'User ID is required for profile update' });
   }
 
-  const updatedUser = db.update('users', u => u.id === id, {
-    name: name || undefined,
-    email: email || undefined,
-    department: department || undefined,
-    year: year || undefined,
-    rollNo: rollNo || undefined,
-    avatar: avatar || undefined,
-    bio: bio || undefined,
-    phone: phone || undefined,
-    updatedAt: new Date().toISOString()
-  });
+  const updates = {};
+  if (name !== undefined) updates.name = name;
+  if (email !== undefined) updates.email = email;
+  if (department !== undefined) updates.department = department;
+  if (year !== undefined) updates.year = year;
+  if (rollNo !== undefined) updates.rollNo = rollNo;
+  if (avatar !== undefined) updates.avatar = avatar;
+  if (bio !== undefined) updates.bio = bio;
+  if (phone !== undefined) updates.phone = phone;
+  updates.updatedAt = new Date().toISOString();
+
+  const updatedUser = db.update('users', u => u.id === id, updates);
 
   if (!updatedUser) {
     return res.status(404).json({ error: 'User profile not found' });
