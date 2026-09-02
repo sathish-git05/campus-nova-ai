@@ -14,6 +14,7 @@ import { EventsView } from './components/EventsView';
 import { AlumniView } from './components/AlumniView';
 import { IoTDashboardView } from './components/IoTDashboardView';
 import { AdminView } from './components/AdminView';
+import { ProfileView } from './components/ProfileView';
 import { AIChatDrawer } from './components/AIChatDrawer';
 import { ToastAlert } from './components/ToastAlert';
 
@@ -62,6 +63,8 @@ const AppContent = () => {
         return <IoTDashboardView />;
       case 'admin':
         return user?.role === 'admin' ? <AdminView /> : <DashboardView setActiveTab={setActiveTab} />;
+      case 'profile':
+        return <ProfileView />;
       default:
         return <DashboardView setActiveTab={setActiveTab} />;
     }
@@ -82,6 +85,7 @@ const AppContent = () => {
           isAIOpen={isAIOpen}
           activeTheme={theme}
           onToggleTheme={toggleTheme}
+          onProfileClick={() => setActiveTab('profile')}
         />
 
         <main className="page-body">

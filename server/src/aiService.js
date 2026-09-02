@@ -59,7 +59,8 @@ export const aiService = {
       try {
         const client = new OpenAI({
           baseURL: 'https://integrate.api.nvidia.com/v1',
-          apiKey: process.env.NVIDIA_API_KEY
+          apiKey: process.env.NVIDIA_API_KEY,
+          timeout: 3000
         });
         
         const systemPrompt = `You are CampusNova AI, an intelligent, polite, and comprehensive assistant for a Smart Engineering College Campus.

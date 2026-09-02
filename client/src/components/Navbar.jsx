@@ -14,7 +14,7 @@ import {
   Flame
 } from 'lucide-react';
 
-export const Navbar = ({ onToggleAI, isAIOpen, activeTheme, onToggleTheme }) => {
+export const Navbar = ({ onToggleAI, isAIOpen, activeTheme, onToggleTheme, onProfileClick }) => {
   const { user, switchRole, loading } = useAuth();
   const { isConnected, sensors, alerts } = useIoT();
 
@@ -114,7 +114,12 @@ export const Navbar = ({ onToggleAI, isAIOpen, activeTheme, onToggleTheme }) => 
         </div>
 
         {/* User Info */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div 
+          onClick={onProfileClick}
+          style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', padding: '4px 8px', borderRadius: '8px', transition: 'background 0.2s' }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+        >
           <img
             src={user?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'}
             alt={user?.name}
